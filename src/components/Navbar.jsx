@@ -3,7 +3,7 @@ import Navlinks from "./Navlinks";
 
 const Navbar = () => {
     return (
-        <div className="w-full navbar bg-base-300">
+        <nav className="w-full navbar sticky top-0">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer-3"
@@ -33,7 +33,7 @@ const Navbar = () => {
               <Navlinks />
             </ul>
           </div>
-        </div>
+        </nav>
     );
 };
 

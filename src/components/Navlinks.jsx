@@ -4,16 +4,16 @@ const Navlinks = () => {
   return (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink to={"/"} className={"text-white"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={"/about"}>About</NavLink>
+        <NavLink to={"/about"} className={"text-white"}>About</NavLink>
       </li>
       <li>
-        <NavLink to={"/contact"}>Contact</NavLink>
+        <NavLink to={"/contact"} className={"text-white"}>Contact</NavLink>
       </li>
       <li>
-        <NavLink to={"/login"}>Login</NavLink>
+        <NavLink to={"/login"} className={"text-white"}>Login</NavLink>
       </li>
     </>
   );
