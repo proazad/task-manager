@@ -16,7 +16,6 @@ const Layout = () => {
           className="drawer-overlay"
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-violet-950">
-          {/* Sidebar content here */}
           <Navlinks />
         </ul>
       </div>

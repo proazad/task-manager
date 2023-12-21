@@ -11,7 +11,7 @@ const Banner = () => {
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
-          <Link to={"/login"}>
+          <Link to={"/dashboard"}>
             <button className="btn btn-primary">Let’s Explore</button>
           </Link>
         </div>
