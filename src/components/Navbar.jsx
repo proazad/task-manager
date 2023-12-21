@@ -29,7 +29,7 @@ const Navbar = () => {
            <Logo/>
           </div>
           <div className="flex-none hidden lg:block">
-            <ul className="menu menu-horizontal">
+            <ul className="menu menu-horizontal items-center">
               <Navlinks />
             </ul>
           </div>

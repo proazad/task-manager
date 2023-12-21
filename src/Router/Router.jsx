@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
+import AddTask from "../Page/Dashboard/AddTask";
 import Dashboard from "../Page/Dashboard/Dashboard";
 import ErrorPage from "../Page/ErrorPage";
 import Home from "../Page/Home";
 import Login from "../Page/Login";
 import Registration from "../Page/Registration";
 import Layout from "../layout/layout";
-import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -33,11 +33,14 @@ const Router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: (
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
-    ),
+    element: <Dashboard/>,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "addtask",
+        element: <AddTask />,
+      },
+    ],
   },
 ]);
 

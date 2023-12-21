@@ -1,9 +1,11 @@
+import AddTask from "./AddTask";
+
 const Dashboard = () => {
-    return (
-        <div>
-            <h2 className="text-4xl">Hello From Dashboard</h2>
-        </div>
-    );
+  return (
+    <div className="text-neutral">
+      <AddTask />
+    </div>
+  );
 };
 
 export default Dashboard;
