@@ -3,6 +3,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import SocialLogin from "../components/SocialLogin";
 import Title from "../utils/Title";
 const Login = () => {
   const [showpass, setShowpass] = useState(false);
@@ -210,6 +211,7 @@ const Login = () => {
                 Create an account
               </Link>
             </p>
+            <SocialLogin />
           </div>
         </div>
       </div>

@@ -3,23 +3,35 @@ import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 const SocialLogin = () => {
   const { signInWithGmail } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
   const handleGoogleSignIn = () => {
     signInWithGmail()
       .then((result) => {
-        const user = result.user;
+        const fuser = result.user;
+        const user = {
+          name: fuser.displayName,
+          photo: fuser.photoURL,
+          email: fuser.email,
+          creationTime: fuser.metadata.creationTime,
+        };
         if (user) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Registraion Successfull",
-            showConfirmButton: false,
-            timer: 5500,
+          axiosPublic.post("/users", user).then((res) => {
+            if (res.data) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User Created Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate(location?.state ? location?.state : "/");
+            }
           });
-          navigate(location?.state ? location?.state : "/");
         }
       })
       .catch(() => {

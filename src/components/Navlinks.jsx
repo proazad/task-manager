@@ -5,6 +5,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navlinks = () => {
   const { userLogOut, user } = useContext(AuthContext);
+  
   const handleUserLogOut = () => {
     userLogOut().then(() => {
       Swal.fire({
