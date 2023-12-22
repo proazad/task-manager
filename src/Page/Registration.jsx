@@ -3,12 +3,14 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 import SocialLogin from "../components/SocialLogin";
 import Title from "../utils/Title";
 const Registration = () => {
   const [showpass, setShowpass] = useState(false);
   const [showpass2, setShowpass2] = useState(false);
   const [error, setError] = useState(null);
+  const axiosPublic = useAxiosPublic();
   const { userRegistration, profileUpdate } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +24,6 @@ const Registration = () => {
     const password2 = form.get("password2");
     const condition = form.get("condition");
 
-    const user = { name, photo, email, password, password2, condition };
     const regx = /^(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).+$/;
     if (password.length < 6) {
       setError("Password Must be 6 character or Long");
@@ -36,17 +37,29 @@ const Registration = () => {
       setError(null);
       userRegistration(email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          if (user) {
+          const fuser = userCredential.user;
+          if (fuser) {
             profileUpdate(name, photo).then(() => {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Registraion Successfull",
-                showConfirmButton: false,
-                timer: 1500,
+              const user = {
+                name,
+                photo,
+                email,
+                password,
+                condition,
+                creationTime: fuser.metadata.creationTime,
+              };
+              axiosPublic.post("/users", user).then((res) => {
+                if (res.data) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Created Successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  navigate(location?.state ? location?.state : "/");
+                }
               });
-              navigate(location?.state ? location?.state : "/");
             });
           }
         })

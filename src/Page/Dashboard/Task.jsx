@@ -1,11 +1,10 @@
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import AddTask from "../../components/AddTask";
 const Task = () => {
   return (
     <div className="px-2">
-      <div className="my-5">
-        <button className="btn btn-outline btn-success">Add New Task</button>
-      </div>
+      <AddTask/>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <div className="border border-yellow-700 rounded-md  py-2 px-2 duration-300">
           <h2 className="text-2xl font-semibold uppercase text-yellow-600">
