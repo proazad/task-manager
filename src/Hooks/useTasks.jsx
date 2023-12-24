@@ -13,7 +13,7 @@ const useTasks = () => {
   } = useQuery({
     queryKey: [WhoAmI?.id, "tasks"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/tasks/user/${WhoAmI._id}`);
+      const res = await axiosPublic.get(`/tasks/${WhoAmI._id}`);
       return res.data;
     },
   });

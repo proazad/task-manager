@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic";
 
-const useSingleTask = ({ id }) => {
+const useSingleTask = (id) => {
   const axiosPublic = useAxiosPublic();
   const {
     data: task,
@@ -10,7 +10,7 @@ const useSingleTask = ({ id }) => {
   } = useQuery({
     queryKey: ["task"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/tasks/${id}`);
+      const res = await axiosPublic.get(`/task/${id}`);
       return res.data;
     },
   });

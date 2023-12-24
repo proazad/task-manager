@@ -7,13 +7,17 @@ import useSingleTask from "../../Hooks/useSingleTask";
 const UpdateTask = () => {
   const axiosPublic = useAxiosPublic();
   const { id } = useParams();
-  const [task, isLoading, refetch] = useSingleTask(id);
-  console.log(task);
+  const [task, , refetch] = useSingleTask(id);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    title: task.title,
+    deadline: task.deadline,
+    priority: task.priority,
+    description: task.description,
+  });
 
   const onSubmit = (data) => {
     const task = {
@@ -21,14 +25,13 @@ const UpdateTask = () => {
       deadline: data.deadline,
       priority: data.priority,
       description: data.description,
-      position: "to-do",
     };
-    axiosPublic.post("/task", task).then((res) => {
-      if (res.data) {
+    axiosPublic.patch(`/task/${id}`, task).then((res) => {
+      if (res.data.modifiedCount > 0) {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "User Created Successfully",
+          title: "Task UpdatedF Successfull",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -66,6 +69,7 @@ const UpdateTask = () => {
               <select
                 {...register("priority")}
                 className="select select-bordered select-primary"
+                defaultValue={task.priority}
               >
                 <option value="low">Low</option>
                 <option value="moderate">Moderate</option>

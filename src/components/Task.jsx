@@ -7,7 +7,6 @@ const Task = () => {
   if (isLoading && !tasks) {
     return "Loading.....";
   }
-  console.log(tasks);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       <div className="border border-yellow-700 rounded-md  py-2 px-2 duration-300">
