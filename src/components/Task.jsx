@@ -2,11 +2,41 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import useTasks from "../Hooks/useTasks";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 const Task = () => {
-  const [tasks, isLoading] = useTasks();
+  const [tasks, isLoading, refetch] = useTasks();
+  const axiosPublic = useAxiosPublic();
   if (isLoading && !tasks) {
     return "Loading.....";
   }
+  const handleDeleteTask = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/task/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Task has been Deleted",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       <div className="border border-yellow-700 rounded-md  py-2 px-2 duration-300">
@@ -25,7 +55,10 @@ const Task = () => {
                   <Link to={`/dashboard/task/${task._id}`}>
                     <FaEdit className="text-xl cursor-pointer text-blue-600" />
                   </Link>
-                  <MdDelete className="text-xl cursor-pointer text-red-700" />
+                  <MdDelete
+                    onClick={() => handleDeleteTask(task._id)}
+                    className="text-xl cursor-pointer text-red-700"
+                  />
                 </p>
               </li>
             ))
