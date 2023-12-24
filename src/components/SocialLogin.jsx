@@ -8,6 +8,7 @@ const SocialLogin = () => {
   const { signInWithGmail } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const axiosPublic = useAxiosPublic();
   const handleGoogleSignIn = () => {
     signInWithGmail()
@@ -29,7 +30,7 @@ const SocialLogin = () => {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              navigate(location?.state ? location?.state : "/");
+              navigate(from);
             }
           });
         }

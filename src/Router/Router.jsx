@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
+import AddTask from "../Page/Dashboard/AddTask";
 import Dashboard from "../Page/Dashboard/Dashboard";
-import Task from "../Page/Dashboard/Task";
+import UpdateTask from "../Page/Dashboard/UpdateTask";
 import ErrorPage from "../Page/ErrorPage";
 import Home from "../Page/Home";
 import Login from "../Page/Login";
 import Registration from "../Page/Registration";
 import Layout from "../layout/layout";
 import PrivateRoute from "./PrivateRoute";
-import AddTask from "../Page/Dashboard/AddTask";
 
 const Router = createBrowserRouter([
   {
@@ -44,11 +44,11 @@ const Router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Task />,
+        element: <AddTask />,
       },
       {
-        path: "/dashboard/addtask",
-        element: <AddTask />,
+        path: "/dashboard/task/:id",
+        element: <UpdateTask />,
       },
     ],
   },

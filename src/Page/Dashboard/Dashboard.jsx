@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { FaFileCirclePlus } from "react-icons/fa6";
 import { FcHome } from "react-icons/fc";
-import { RiMenuUnfoldLine } from "react-icons/ri";
+import { RiLogoutCircleLine, RiMenuUnfoldLine } from "react-icons/ri";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { RiLogoutCircleLine } from "react-icons/ri";
+import Task from "../../components/Task";
 const Dashboard = () => {
   const { userLogOut, user } = useContext(AuthContext);
   const handleUserLogOut = () => {
@@ -34,6 +34,7 @@ const Dashboard = () => {
           </label>
         </div>
         <Outlet />
+        <Task />
       </div>
       <div className="drawer-side">
         <label
@@ -59,7 +60,7 @@ const Dashboard = () => {
             </Link>
           </li>
           <li>
-            <Link to={"/dashboard/addtask"}>
+            <Link to={"/dashboard"}>
               <FaFileCirclePlus />
               Add Task
             </Link>

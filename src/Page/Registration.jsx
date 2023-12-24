@@ -14,6 +14,7 @@ const Registration = () => {
   const { userRegistration, profileUpdate } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleUserRegistration = (event) => {
     event.preventDefault();
     const form = new FormData(event.target);
@@ -57,7 +58,7 @@ const Registration = () => {
                     showConfirmButton: false,
                     timer: 1500,
                   });
-                  navigate(location?.state ? location?.state : "/");
+                  navigate(from);
                 }
               });
             });

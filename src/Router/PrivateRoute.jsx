@@ -1,20 +1,20 @@
 import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
-import useUser from "../Hooks/useUser";
+import useAuth from "../Hooks/useAuth";
 const PrivateRoute = ({ children }) => {
-  const [WhoAmI, isLoading] = useUser();
+  const { user, loading } = useAuth();
   const location = useLocation();
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
         <span className="loading loading-spinner text-primary loading-lg"></span>
       </div>
     );
   }
-  if (WhoAmI?.email) {
+  if (user) {
     return children;
   }
-  if (!WhoAmI)
+  if (!user)
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
 };
 PrivateRoute.propTypes = {

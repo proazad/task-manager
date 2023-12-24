@@ -13,11 +13,10 @@ const useTasks = () => {
   } = useQuery({
     queryKey: [WhoAmI?.id, "tasks"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/task/${WhoAmI._id}`);
+      const res = await axiosPublic.get(`/tasks/user/${WhoAmI._id}`);
       return res.data;
     },
   });
   return [tasks, isLoading, refetch];
 };
-
 export default useTasks;

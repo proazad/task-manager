@@ -10,6 +10,7 @@ const Login = () => {
   const { userLogin, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   if (user) {
     return <Navigate to="/" replace></Navigate>;
   }
@@ -28,7 +29,7 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate(location?.state ? location?.state : "/");
+          navigate(from);
         }
       })
       .catch((error) => {

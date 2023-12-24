@@ -1,20 +1,22 @@
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
-import useUser from "../Hooks/useUser";
-import useTasks from "../Hooks/useTasks";
-const AddTask = () => {
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useSingleTask from "../../Hooks/useSingleTask";
+
+const UpdateTask = () => {
   const axiosPublic = useAxiosPublic();
-  const [WhoAmI] = useUser();
-  const [, , refetch] = useTasks();
+  const { id } = useParams();
+  const [task, isLoading, refetch] = useSingleTask(id);
+  console.log(task);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     const task = {
-      user: WhoAmI._id,
       title: data.title,
       deadline: data.deadline,
       priority: data.priority,
@@ -34,11 +36,12 @@ const AddTask = () => {
       }
     });
   };
+
   return (
     <div>
       <div>
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-lg">Add a New Task</h3>
+          <h3 className="font-bold text-lg">Update Task</h3>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Title Field  */}
@@ -51,7 +54,7 @@ const AddTask = () => {
                 type="text"
                 {...register("title", { required: true })}
                 className="input input-bordered input-primary"
-                placeholder="Add Title"
+                defaultValue={task?.title}
               />
               {errors.title && <span>Title field is required</span>}
             </div>
@@ -79,7 +82,7 @@ const AddTask = () => {
                 type="datetime-local"
                 {...register("deadline", { required: true })}
                 className="input input-bordered input-primary"
-                placeholder="Add Title"
+                defaultValue={task?.deadline}
               />
               {errors.deadline && <span>Deadline field is required</span>}
             </div>
@@ -93,7 +96,7 @@ const AddTask = () => {
             <textarea
               {...register("description", { required: true })}
               className="textarea textarea-bordered textarea-primary"
-              placeholder="Add Description"
+              defaultValue={task?.description}
             ></textarea>
             {errors.description && <span>Description field is required</span>}
           </div>
@@ -107,4 +110,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default UpdateTask;
